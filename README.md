@@ -52,11 +52,10 @@ git clone https://github.com/sleepyparadox/navybattle.net.git /var/navybattle.ne
 
 `k8s/common/cluster-issuer.yaml`
 
-| File | Replace | With | Note
-|---|---|---|---|
-|navybattle-cert.yaml|me@example.com| Your email | This is the email used with the Let's Encrypt cert authority |
-|navybattle-cert.yaml |navybattle.net| Your domain | This domain will receive a https cert |
-|navybattle-ingress.yaml|navybattle.net| Your domain | This domain will have ingress from the internet |
+| File | Replace | With |
+|---|---|---|
+|cluster-issuer.yaml|me@example.com| Your email |
+|navybattle-ingress.yaml|navybattle.net| Your domain | 
 
 
 #### Install certmanager
