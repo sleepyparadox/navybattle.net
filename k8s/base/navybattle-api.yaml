@@ -13,10 +13,10 @@ spec:
         app: navybattle-api
     spec:
       containers:
-      - name: wisdom
-        image: linuxacademycontent/wisdomapi:v1
+      - name: nginx
+        image: nginx:latest
         ports:
-        - containerPort: 5000
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -28,5 +28,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 5000
+      targetPort: 80
   type: ClusterIP
