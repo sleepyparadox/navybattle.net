@@ -13,7 +13,7 @@ This is a tech demo using Kubernetes and ASP.NET Core
 
 ## Setup - Quick Ubuntu Demo
 
-#### Requirements
+### Requirements
 
 This setup will require
 - A domain name
@@ -21,12 +21,24 @@ This setup will require
 - With at least 1GB Memory (2GB recommended)
 - A container registry with NavyBattle.Net container images built 
 (From earlier step)
+- Your contact email for Let's Encrypt setup 
 
-#### Setup domain records
+### Setup domain records
 
 Create an A-Record for your domain (or subdomain) pointing to your instance public ip
 
-#### Install k3s
+### Configure firewall
+
+Enable ssh, http and https
+
+```bash
+ufw allow 22   # SSH
+ufw allow 80   # HTTP
+ufw allow 443  # HTTPS
+ufw enable
+```
+
+### Install k3s
 This is a lightweight kubernetes distribution
 
 Installation can take up to 30s
@@ -40,7 +52,14 @@ Check the status
 ```bash
 k3s kubectl get node  
 ```
-#### Clone repo
+
+### Install Certmanager
+
+```bash
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml
+```
+
+### Clone repo
 
 ```bash
 apt-get update
@@ -48,45 +67,26 @@ apt-get install git -y
 git clone https://github.com/sleepyparadox/navybattle.net.git /var/navybattle.net
 ```
 
-#### Configure resources for your domain
+### Edit repo
 
-`k8s/common/cluster-issuer.yaml`
+Edit `k8s/common/cluster-issuer.yaml`
 
-| File | Replace | With |
-|---|---|---|
-|cluster-issuer.yaml|me@example.com| Your email |
-|navybattle-ingress.yaml|navybattle.net| Your domain | 
+| Replace | With |
+|---|---|
+|me@example.com| Your email |
 
 
-#### Install certmanager
+Edit `k8s/base/navybattle-ingress.yaml`
 
-```bash
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml
-```
+| Replace | With |
+|---|---|
+|navybattle.net| Your email |
 
-#### Configure ufw
 
-Enable ssh, http and https
-
-```bash
-ufw allow 22   # SSH
-ufw allow 80   # HTTP
-ufw allow 443  # HTTPS
-ufw enable
-```
-
-#### Create cluster
+### Deploy cluster
 
 ```bash
 kubectl apply -f k8s/common/cluster-issuer.yaml
 kubectl apply -f k8s/base/navybattle-api.yaml
 kubectl apply -f k8s/base/navybattle-ingress.yaml
 ```
-
-```bash
-k3s kubectl get node  
-```
-
-#### Setup cluster
-
-Create navybattle.net
