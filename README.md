@@ -45,7 +45,6 @@ k3s kubectl get node
 ```bash
 apt-get update
 apt-get install git -y
-sudo mkdir -p /var/navybattle.net
 git clone https://github.com/sleepyparadox/navybattle.net.git /var/navybattle.net
 ```
 
@@ -53,22 +52,11 @@ git clone https://github.com/sleepyparadox/navybattle.net.git /var/navybattle.ne
 
 `k8s/common/cluster-issuer.yaml`
 
-| Replace | With | Note
-|---|---|---|
-|me@example.com| Your email | This is the email used with the Let's Encrypt cert authority |
-
-`k8s/base/navybattle-cert.yaml`
-
-| Replace | With | Note
-|---|---|---|
-|navybattle.net| Your domain | This domain will receive a https cert |
-
-`k8s/base/navybattle-ingress.yaml`
-
-| Replace | With | Note
-|---|---|---|
-|navybattle.net| Your domain | This domain will have ingress from the internet |
-
+| File | Replace | With | Note
+|---|---|---|---|
+|navybattle-cert.yaml|me@example.com| Your email | This is the email used with the Let's Encrypt cert authority |
+|navybattle-cert.yaml |navybattle.net| Your domain | This domain will receive a https cert |
+|navybattle-ingress.yaml|navybattle.net| Your domain | This domain will have ingress from the internet |
 
 
 #### Install certmanager
@@ -77,12 +65,23 @@ git clone https://github.com/sleepyparadox/navybattle.net.git /var/navybattle.ne
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml
 ```
 
-Edit k8s/common/letsencrypt.yaml
+#### Configure ufw
 
-Replace your-email@example.com with your email
+Enable ssh, http and https
 
 ```bash
-kubectl apply -f k8s/common/letsencrypt.yaml
+ufw allow 22   # SSH
+ufw allow 80   # HTTP
+ufw allow 443  # HTTPS
+ufw enable
+```
+
+#### Create cluster
+
+```bash
+kubectl apply -f k8s/common/cluster-issuer.yaml
+kubectl apply -f k8s/base/navybattle-api.yaml
+kubectl apply -f k8s/base/navybattle-ingress.yaml
 ```
 
 ```bash
