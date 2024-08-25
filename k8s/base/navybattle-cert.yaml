@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: navybattle-net-tls
+  namespace: default
+spec:
+  secretName: navybattle-net-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: navybattle.net
+  dnsNames:
+  - navybattle.net

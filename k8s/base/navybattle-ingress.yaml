@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: navybattle-net
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  tls:
+  - hosts:
+    - navybattle.net
+    secretName: navybattle-net-tls
+  rules:
+  - host: navybattle.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: navybattle-api-service
+            port:
+              number: 80
