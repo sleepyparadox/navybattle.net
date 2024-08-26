@@ -13,8 +13,8 @@ spec:
         app: navybattle-api
     spec:
       containers:
-      - name: nginx
-        image: nginx:latest
+      - name: navybattle-api
+        image: docker.io/sleepyparadox/navybattle-api:latest # Replace with your container image
         ports:
         - containerPort: 80
 ---

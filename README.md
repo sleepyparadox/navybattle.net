@@ -6,10 +6,9 @@ This is a tech demo using Kubernetes and ASP.NET Core
 
 🚩This entire project is currently under development
 
-
 ## Setup - Container images
 
-🚩TODO
+Build and push the container images at [github.com/sleepyparadox/navybattle.net-containers](https://github.com/sleepyparadox/navybattle.net-containers)
 
 ## Setup - Quick Ubuntu Demo
 
@@ -73,14 +72,23 @@ Edit `k8s/common/cluster-issuer.yaml`
 
 | Replace | With |
 |---|---|
-|me@example.com| Your email |
+|me@example.com| your email |
 
 
 Edit `k8s/base/navybattle-ingress.yaml`
 
 | Replace | With |
 |---|---|
-|navybattle.net| Your email |
+|navybattle.net| your domain |
+
+
+Edit `k8s/base/navybattle-api.yaml`
+
+| Replace | With |
+|---|---|
+|docker.io/sleepyparadox/navybattle-api:latest| your container image |
+
+
 
 
 ### Deploy cluster
