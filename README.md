@@ -6,11 +6,11 @@ This is a tech demo using Kubernetes and ASP.NET Core
 
 🚩This entire project is currently under development
 
-## Setup - Container images
+## Setup - Create Container images
 
-Build and push the container images at [github.com/sleepyparadox/navybattle.net-containers](https://github.com/sleepyparadox/navybattle.net-containers)
+Build and push the container images at [github.com/sleepyparadox/navybattle.net-containers](https://github.com/sleepyparadox/navybattle.net-containers) to your perferred container repository
 
-## Setup - Quick Ubuntu Demo
+## Setup - Quick Ubuntu K3S Deployment
 
 ### Requirements
 
